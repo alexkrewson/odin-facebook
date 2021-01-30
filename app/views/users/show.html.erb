@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= current_user.name %>
+</p>
+<br>
+
+<% if current_user.avatar.attached? %>
+<image src="<%= (url_for(current_user.avatar)) %>">
+<% end %>
+
+

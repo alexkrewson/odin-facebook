@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
   get '/users/:id/friends', to: 'friends#index'
   get '/users', to: 'users#index'
+  get '/users/:id', to: 'users#show'
 
   resources :friendships
   resources :notifications, only: [:create, :index]

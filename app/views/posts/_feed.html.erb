@@ -29,7 +29,9 @@
         <article class="media">
           <div class="media-left">
             <figure class="image is-64x64">
-              <%= gravatar_image_tag(post.user.email, size: 64, alt: post.user.name)%>
+              <% if post.user.avatar.attached? %>
+                <image src="<%= (url_for(post.user.avatar)) %>">
+			        <% end %>
             </figure>
           </div>
           <div class="media-content">

@@ -45,5 +45,13 @@ class UsersController < ApplicationController
             @users = User.all
             
         end
+
+        def show
+            puts "user shoooooooooooooooooooooooooooooooooooooooooooooooow"
+            @user = User.find(params[:id])
+            puts @user.name
+            
+            puts "user shoooooooooooooooooooooooooooooooooooooooooooooooow"
+        end
     end
 end

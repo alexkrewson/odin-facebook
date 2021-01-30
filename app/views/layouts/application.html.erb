@@ -6,13 +6,7 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
-    <% if false %>
-    
-    
-    
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <% end %>
   </head>
   <body>
     <% if flash[:notice] %>
@@ -65,17 +59,17 @@
                               <% @friendship = Friendship.new %>
                               <% @user = User.find(n.actor_id) %>
                               <td>
-                                  <%= simple_form_for @friendship do |f| %>
-                                    <%= f.hidden_field :user_id, :value => current_user.id %>
-                                    <%= f.hidden_field :friend_id, :value => @user.id %>
-                                    <%= f.hidden_field :notification_id, :value => n.id %>
-                                <div class="vertical-center">
+                                <%= simple_form_for @friendship do |f| %>
+                                  <%= f.hidden_field :user_id, :value => current_user.id %>
+                                  <%= f.hidden_field :friend_id, :value => @user.id %>
+                                  <%= f.hidden_field :notification_id, :value => n.id %>
+                                  <div class="vertical-center">
                                     <%= f.button :submit, 'Accept' %>
-                                </div>
-                                  <% end %>
+                                  </div>
+                                <% end %>
                               </td>
                             </tr>
-                              <hr class="dropdown-divider">
+                            <hr class="dropdown-divider">
                           </table>
                         <% elsif n.action == "posted" && n.actor_id != current_user.id %>
                           <table>
@@ -87,25 +81,24 @@
                             <tr>
                               <td>
                                 <a><%= User.find(n.actor_id).name + " commented on your post" %></a>
-                              </td> 
-                              
+                              </td>
                             </tr>
-                              <hr class="dropdown-divider">
+                            <hr class="dropdown-divider">
                           </table>
                         <% elsif n.action == "like" && n.recipient_id == current_user.id %>
                           <table>
-                              <thead>
-                                <tr>
-                                  <th style="width:1150px"></th>
-                                </tr>
-                              </thead>
+                            <thead>
                               <tr>
-                                <td>
-                                  <a><%= User.find(n.actor_id).name + " liked your post" %></a>
-                                </td> 
+                                <th style="width:1150px"></th>
                               </tr>
-                                <hr class="dropdown-divider">
-                            </table>
+                            </thead>
+                            <tr>
+                              <td>
+                                <a><%= User.find(n.actor_id).name + " liked your post" %></a>
+                              </td>
+                            </tr>
+                            <hr class="dropdown-divider">
+                          </table>
                         <% end %>
                       <% end %>
                     </div>
@@ -114,10 +107,8 @@
                 <p class="control">
                   <%= link_to current_user.name, edit_user_registration_path, class: "button is-info" %>
                 </p>
-                <% if false %>
-                <% end %>
                 <p class="control">
-                  <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "button is-info" %>
+                  <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "button is-info" %>
                 </p>
               <% else %>
                 <p class="control">
