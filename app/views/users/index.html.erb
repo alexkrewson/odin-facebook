@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+<h1>users</h1>
+<%= simple_form_for :search, url: users_path, method: "GET" do |f| %>
+  <%= f.input :friend %>
+  <br>
+  <%= f.submit "Search" %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th style="width:150px"></th>
+      <th style="width:150px"></th>
+      <th style="width:150px"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <% unless user.name == current_user.name %>
+        <tr height="30px">
+          <td><%= user.name %></td>
+          
+          <% @notification = user.notifications.build()%>
+          <td>
+           <% puts "user_index_frieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeendships" %>
+
+           <% puts Friendship.where(user_id: current_user.id).exists? %>
+
+            <% unless Friendship.where(user_id: current_user.id).exists? && Friendship.where(friend_id: user.id).exists? %>
+              <%= simple_form_for @notification do |f| %>
+                <%= f.hidden_field :recipient_id, :value => user.id %>
+                <%= f.hidden_field :actor_id, :value => current_user.id %>
+                <%= f.hidden_field :action, :value => "friend request" %>
+                <%= f.button :submit %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

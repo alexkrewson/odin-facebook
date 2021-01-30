@@ -1,0 +1,24 @@
+<% if user_signed_in? %>
+  <div class="column is-one-quarter">
+    <nav class="panel">
+      <p class="panel-heading">Friends</p>
+      <div class="panel-block">
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <table>
+                <tbody>
+                  <% current_user.friends.each do | friend | %>
+                    <tr>
+                      <td><%= friend.name %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+      </div>
+    </nav>
+  </div>
+<% end %>

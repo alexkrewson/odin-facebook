@@ -1,0 +1,32 @@
+<table>
+  <thead>
+    <tr>
+      <th style="width:150px">recipient_id: </th>
+      <th style="width:150px">actor_id: </th>
+      <th style="width:150px">action: </th>
+      <th style="width:150px">action: </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.recipient_id %></td>
+        <td><%= notification.actor_id %></td>
+        <td><%= notification.action %></td>
+        <% @friendship = Friendship.new %>
+        <% @user = User.find(notification.actor_id) %>
+        <td>
+          <%= simple_form_for @friendship do |f| %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+            <%= f.hidden_field :friend_id, :value => @user.id %>
+            <%= f.button :submit %>
+          <% end %>
+        </td>
+        <% if false %>
+          <td><%= link_to 'Edit', edit_post_comment_path(@post.id,comment.id) %></td>
+          <td><%= link_to 'Destroy', post_comment_path(@post.id,comment.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

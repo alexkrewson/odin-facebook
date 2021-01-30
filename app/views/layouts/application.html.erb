@@ -1,15 +1,127 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OdinFacebook</title>
+    <title>Fb</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
+    <% if false %>
+    
+    
+    
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% end %>
+  </head>
   <body>
+    <% if flash[:notice] %>
+      <div class="notification is-primary global-notification">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="notification is-danger global-notification">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+    <nav class="navbar is-info">
+      <div class="navbar-brand">
+        <%= link_to root_path, class: "navbar-item" do %>
+          <h1 class="title is-5">fb</h1>
+        <% end %>
+        <div class="navbar-burger burger"> data-target="navbarExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div id="navbarExample" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <% if user_signed_in? %>
+                <div class="dropdown is-active">
+                  <div class="dropdown-trigger">
+                    <button class="button is-info" aria-haspopup="true" aria-controls="dropdown-menu">
+                      <span>Notifications</span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <% Notification.all.where(recipient_id: current_user.id).each do |n| %>
+                        <% if n.action == "friend request" && n.actor_id != current_user.id %>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th style="width:175px"></th>
+                                <th style="width:50px"></th>
+                              </tr>
+                            </thead>
+                            <tr>
+                              <td>
+                                <a><%= User.find(n.actor_id).name + " wants to be friends" %></a>
+                              </td>
+                              <% @friendship = Friendship.new %>
+                              <% @user = User.find(n.actor_id) %>
+                              <td>
+                                  <%= simple_form_for @friendship do |f| %>
+                                    <%= f.hidden_field :user_id, :value => current_user.id %>
+                                    <%= f.hidden_field :friend_id, :value => @user.id %>
+                                    <%= f.hidden_field :notification_id, :value => n.id %>
+                                <div class="vertical-center">
+                                    <%= f.button :submit, 'Accept' %>
+                                </div>
+                                  <% end %>
+                              </td>
+                            </tr>
+                              <hr class="dropdown-divider">
+                          </table>
+                        <% elsif n.action == "posted" && n.actor_id != current_user.id %>
+                          <table>
+                            <thead>
+                              <tr>
+                                <th style="width:1150px"></th>
+                              </tr>
+                            </thead>
+                            <tr>
+                              <td>
+                                <a><%= User.find(n.actor_id).name + " commented on your post" %></a>
+                              </td> 
+                              
+                            </tr>
+                              <hr class="dropdown-divider">
+                          </table>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <p class="control">
+                  <%= link_to current_user.name, edit_user_registration_path, class: "button is-info" %>
+                </p>
+                <% if false %>
+                <% end %>
+                <p class="control">
+                  <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "button is-info" %>
+                </p>
+              <% else %>
+                <p class="control">
+                  <%= link_to 'Sign In', new_user_session_path, class: "button is-info" %>
+                </p>
+                <p class="control">
+                  <%= link_to 'Sign Up', new_user_registration_path, class: "button is-info" %>
+                </p>
+              <% end %>
+              <%# field is-grouped %>
+            </div>
+            <%# navbar-item %>
+          </div>
+          <%# navbar-end %>
+        </div>
+        <%# navbar-menu %>
+      </div>
+    </nav>
     <%= yield %>
   </body>
 </html>

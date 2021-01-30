@@ -1,0 +1,90 @@
+<% if user_signed_in? %>
+<div class="column is-half">
+            <div class="imgwrp">
+                <figure class="image is-64x64 imgwrp">
+                    <img src="data:image/jpeg;base64,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">
+                </figure>
+            </div>
+    <article class="media box">
+        <figure class="media left">
+        </figure>
+        <div class="media-content">
+        </div>
+    </article>
+
+    <% if user_signed_in? %>
+        <article class="media box">
+            <figure class="media left">
+            </figure>
+            <div class="media-content">
+                <%= render 'posts/form' %>
+            </div>
+        </article>
+    <% end %>
+
+<% @posts.each do | post | %>
+    <div class="box">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64">
+                    <%= gravatar_image_tag(post.user.email, size: 64, alt: post.user.name)%>
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <strong><%= post.user.name %></strong><br/>
+                <p> <%= post.body %></p>
+            </div>
+                <nav class="level">
+                    <div class="level-left is-mobile">
+                        <% if user_signed_in? && current_user == post.user %>
+                            <%= link_to post, class: "level-item" do %>
+                                <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+                            <% end %>
+                            <%= link_to edit_post_path(post), class: "level-item" do %>
+                                <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                            <% end %>
+                            <%= link_to post, method: :delete, data: {confirm: "are you sure you want to delete this post?"
+                            } do %>
+                                <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                            <% end %>
+                        <% end %>
+                        <% link_to 'Comment', new_post_comment_path(post.id), class: "button is-dark" %>
+                    
+                    </div>
+                    
+                </nav>
+            </div>
+        </article>
+
+        <br>
+        <% if current_user != post.user %>
+        <% @post = post %>
+        <%= render 'comments/form' %>
+        <% end %>
+        <br>
+        <br>
+        <table>
+        <thead>
+        <tr>
+        <th style="width:50px"></th>
+        <th style="width:250px"></th>
+      </tr>
+    </thead>
+        <% post.comments.order("created_at DESC").each do |comment|%>
+        <tr>
+        <td><%= comment.user.name %>:</td>
+        <td><%= comment.body %></td>
+        </tr>
+        <% end %>
+        </table>
+    </div>
+<% end %>
+</div>
+
+<% else %>
+    Please sign in to see content.  
+
+<% end %>
+
+    
