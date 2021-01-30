@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   # GET /posts.json
-  def index
+  def index 
     @posts = Post.all.all.order("created_at DESC")
     @post = Post.new
     if user_signed_in?

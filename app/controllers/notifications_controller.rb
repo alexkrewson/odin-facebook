@@ -17,9 +17,10 @@ class NotificationsController < ApplicationController
         puts "notifications controller paraaaaaaaaaaaaaaaaaaaaaaaaaaaaams"
         @recipient_id = params[:notification][:recipient_id]
         @actor_id = params[:notification][:actor_id]
+        @action = params[:notification][:action]
 
         
-        Notification.create(recipient_id: @recipient_id, actor_id: @actor_id, action: 'friend request', notifiable_id: "1", notifiable_type: "User")
+        Notification.create(recipient_id: @recipient_id, actor_id: @actor_id, action: @action, notifiable_id: "1", notifiable_type: "User")
         redirect_to users_path
     end
 

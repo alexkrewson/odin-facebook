@@ -50,7 +50,7 @@
                   <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
                       <% Notification.all.where(recipient_id: current_user.id).each do |n| %>
-                        <% if n.action == "friend request" && n.actor_id != current_user.id %>
+                        <% if n.action == "friend request" && n.actor_id != current_user.id && current_user.friends.where(id: n.actor_id).exists? == false %>
                           <table>
                             <thead>
                               <tr>
@@ -92,6 +92,20 @@
                             </tr>
                               <hr class="dropdown-divider">
                           </table>
+                        <% elsif n.action == "like" && n.recipient_id == current_user.id %>
+                          <table>
+                              <thead>
+                                <tr>
+                                  <th style="width:1150px"></th>
+                                </tr>
+                              </thead>
+                              <tr>
+                                <td>
+                                  <a><%= User.find(n.actor_id).name + " liked your post" %></a>
+                                </td> 
+                              </tr>
+                                <hr class="dropdown-divider">
+                            </table>
                         <% end %>
                       <% end %>
                     </div>
