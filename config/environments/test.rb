@@ -25,6 +25,10 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
+  # ENV['APP_ID'] = "412653180018216"
+
+  # ENV['APP_SECRET'] = "4ba877d430b0ca55d33e4d4cf5fefb21"
+
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
 

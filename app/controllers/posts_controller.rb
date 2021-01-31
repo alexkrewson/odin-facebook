@@ -12,6 +12,8 @@ class PostsController < ApplicationController
       @comment = current_user.comments.build
     end
 
+    
+
 
   end
 

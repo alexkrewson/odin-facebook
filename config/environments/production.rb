@@ -53,6 +53,10 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
+  # ENV['APP_ID'] = "412653180018216"
+
+  # ENV['APP_SECRET'] = "4ba877d430b0ca55d33e4d4cf5fefb21"
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 

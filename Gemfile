@@ -3,7 +3,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # ruby '2.7.0'
 
-gem "devise", "~> 4.7"
+
+gem 'devise', github: 'heartcombo/devise', branch: 'ca-omniauth-2'
+
+gem "omniauth", "~> 1.9.1"
+
+
+gem 'omniauth-facebook', '~> 4.0'
+
+gem 'jquery-rails'
+
+
 
 gem 'bulma-rails', '~> 0.9.0'
 
