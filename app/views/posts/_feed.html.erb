@@ -21,76 +21,78 @@
       </article>
     <% end %>
     <% @posts.each do | post | %>
-    <% puts " feeeeeeeeeeeeeed frieeeeeeeeeeeeeeeeeeeeeends" %>
-    <% puts post.user.friends.where(id: current_user).exists? %>
-    <% puts " feeeeeeeeeeeeeed frieeeeeeeeeeeeeeeeeeeeeends" %>
-    <% if post.user.friends.where(id: current_user).exists? %>
-      <div class="box">
-        <article class="media">
-          <div class="media-left">
-            <figure class="image is-64x64">
-              <% if post.user.avatar.attached? %>
-                <image src="<%= (url_for(post.user.avatar)) %>">
-			        <% end %>
-            </figure>
-          </div>
-          <div class="media-content">
-            <div class="content">
-              <strong><%= post.user.name %></strong><br/>
-              <p> <%= post.body %></p>
-            </div>
-            <nav class="level">
-              <div class="level-left is-mobile">
-                <% if user_signed_in? && current_user == post.user %>
-                  <%= link_to post, class: "level-item" do %>
-                    <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+      <% if post.user.friends.where(id: current_user).exists? || post.user_id == current_user.id %>
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <% if post.user.avatar.attached? %>
+                  <image src="<%= (url_for(post.user.avatar)) %>">
                   <% end %>
-                  <%= link_to edit_post_path(post), class: "level-item" do %>
-                    <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
-                  <% end %>
-                  <%= link_to post, method: :delete, data: {confirm: "are you sure you want to delete this post?"
-                            } do %>
-                    <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-                  <% end %>
-                <% end %>
-                <% link_to 'Comment', new_post_comment_path(post.id), class: "button is-dark" %>
+                </figure>
               </div>
-            </nav>
-          </div>
-        </article>
-        <br>
-        <% if current_user != post.user %>
-          <% @post = post %>
-          <%= render 'comments/form' %>
-        <% end %>
-        <br>
-        <br>
-        <% @notification = Notification.new %>
-              <%= simple_form_for @notification do |f| %>
-                <%= f.hidden_field :recipient_id, :value => post.user_id %>
-                <%= f.hidden_field :actor_id, :value => current_user.id %>
-                <%= f.hidden_field :action, :value => "like" %>
+              <div class="media-content">
+                <div class="content">
+                  <strong><%= post.user.name %></strong><br/>
+                  <p> <%= post.body %></p>
+                </div>
+                <nav class="level">
+                  <div class="level-left is-mobile">
+                    <% if user_signed_in? && current_user == post.user %>
+                      <%= link_to post, class: "level-item" do %>
+                        <span class="icon"><i class="fa fa-link" aria-hidden="true"></i></span>
+                      <% end %>
+                      <%= link_to edit_post_path(post), class: "level-item" do %>
+                        <span class="icon"><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                      <% end %>
+                      <%= link_to post, method: :delete, data: {confirm: "are you sure you want to delete this post?"
+                            } do %>
+                        <span class="icon"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                      <% end %>
+                    <% end %>
+                    <% link_to 'Comment', new_post_comment_path(post.id), class: "button is-dark" %>
+                  </div>
+                </nav>
+              </div>
+            </article>
+            <br>
+            <strong><%= post.likes.where(post_id: post.id).count %></strong> likes
+            <br>
+              <br>
+            <% if current_user != post.user %>  
+              <% @post = post %>
+              <%= render 'comments/form' %>
+            <% end %>
+            <br>
+            <br>
+            <% @like = Like.new %>
+
+        
+              <%= simple_form_for @like do |f| %>
+                <%= f.hidden_field :user_id, :value => current_user.id %>
+                <%= f.hidden_field :post_id, :value => post.id %>
                 <%= f.button :submit, "like" %>
               <% end %>
-
-        <table>
-          <thead>
-            <tr>
-              <th style="width:50px"></th>
-              <th style="width:250px"></th>
-            </tr>
-          </thead>
-          <% post.comments.order("created_at DESC").each do |comment|%>
-            <tr>
-              <td><%= comment.user.name %>:</td>
-              <td><%= comment.body %></td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    <% end %>
-    <% end %>
-  </div>
-<% else %>
-  Please sign in to see content.  
-<% end %>
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:50px"></th>
+                  <th style="width:250px"></th>
+                </tr>
+              </thead>
+              <br>
+              <br>
+              <% post.comments.order("created_at DESC").each do |comment|%>
+                <tr>
+                  <td><%= comment.user.name %>:</td>
+                  <td><%= comment.body %></td>
+                </tr>
+              <% end %>
+            </table>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    Please sign in to see content.  
+  <% end %>

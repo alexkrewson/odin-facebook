@@ -6,7 +6,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @post = posts(:one)
-    @comment = @post.comments.first
+    @comment = comments(:one)
   end
 
   test "should get index" do

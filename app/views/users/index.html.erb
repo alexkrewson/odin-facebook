@@ -25,12 +25,12 @@
 
            <% puts Friendship.where(user_id: current_user.id).exists? %>
 
-            <% unless Friendship.where(user_id: current_user.id).exists? && Friendship.where(friend_id: user.id).exists? %>
+            <% unless Friendship.where(friend_id: user.id).exists? || Notification.where(recipient_id: user.id, action: "friend request").exists? %>
               <%= simple_form_for @notification do |f| %>
                 <%= f.hidden_field :recipient_id, :value => user.id %>
                 <%= f.hidden_field :actor_id, :value => current_user.id %>
                 <%= f.hidden_field :action, :value => "friend request" %>
-                <%= f.button :submit %>
+                <%= f.button :submit, "Send Friend Request" %>
               <% end %>
             <% end %>
           </td>

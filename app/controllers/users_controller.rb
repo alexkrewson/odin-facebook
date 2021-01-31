@@ -46,12 +46,13 @@ class UsersController < ApplicationController
             
         end
 
-        def show
-            puts "user shoooooooooooooooooooooooooooooooooooooooooooooooow"
-            @user = User.find(params[:id])
-            puts @user.name
-            
-            puts "user shoooooooooooooooooooooooooooooooooooooooooooooooow"
-        end
+    end
+
+
+
+    def show
+        @posts = current_user.posts
+        @user = User.find(params[:id])
+        
     end
 end

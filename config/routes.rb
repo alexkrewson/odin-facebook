@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :friendships
   resources :notifications, only: [:create, :index]
   resources :notification_sessions, only: [:create]
+  resources :likes
 
 
   root 'posts#index'
