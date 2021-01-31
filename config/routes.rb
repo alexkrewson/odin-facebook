@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get '/users/:id/friends', to: 'friends#index'
   get '/users', to: 'users#index'
   get '/users/:id', to: 'users#show'
+  resources :users
+  resources :friends
 
   resources :friendships
   resources :notifications, only: [:create, :index]
