@@ -9,6 +9,10 @@ Rails.application.configure do
 
   # ENV['APP_SECRET'] = "4ba877d430b0ca55d33e4d4cf5fefb21"
 
+  
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+
   config.cache_classes = false
 
   # Do not eager load code on boot.

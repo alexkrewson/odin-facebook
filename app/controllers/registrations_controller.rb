@@ -4,6 +4,18 @@ class RegistrationsController < Devise::RegistrationsController
     # @user.avatar.attach(params[:avatar])
     # end
 
+    def create
+
+        puts "user creaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaated"
+        @user = User.create(sign_up_params)
+        if @user.save
+            UserMailer.with(user: @user).welcome_email.deliver_now
+            redirect_to root_path
+        end
+
+
+    end
+
     private
 
     def sign_up_params
